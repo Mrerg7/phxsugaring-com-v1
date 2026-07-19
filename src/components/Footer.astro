@@ -2,10 +2,10 @@
 import { ACQUISITION_MAILTO, SITE, DISCLAIMER_DATE } from '../config/site';
 ---
 
-<footer class="bg-white border-t border-[#EDE4D7]">
-  <div class="max-w-6xl mx-auto px-6 py-16">
+<footer class="relative z-10 bg-white border-t border-[#EDE4D7]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
     <!-- Sophisticated Domain Acquisition CTA -->
-    <div class="relative overflow-hidden rounded-3xl border border-[#B85C38]/20 bg-gradient-to-br from-[#2D2D2D] via-[#1a1a1a] to-[#B85C38]/15 p-8 sm:p-12 mb-12 text-white">
+    <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#B85C38]/20 bg-gradient-to-br from-[#2D2D2D] via-[#1a1a1a] to-[#B85C38]/15 p-6 sm:p-8 md:p-12 mb-10 sm:mb-12 text-white">
       <div
         class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#B85C38]/10 blur-3xl pointer-events-none"
         aria-hidden="true"
@@ -18,7 +18,7 @@ import { ACQUISITION_MAILTO, SITE, DISCLAIMER_DATE } from '../config/site';
       <div class="relative z-10 grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
         <div>
           <p class="text-xs uppercase tracking-[3px] text-[#B85C38] font-extrabold mb-4">Domain Available for Acquisition</p>
-          <h2 class="font-display text-3xl sm:text-4xl tracking-tight mb-4">
+          <h2 class="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight mb-4">
             phxsugaring.com — A Premium Phoenix Beauty Asset
           </h2>
           <p class="text-white/70 max-w-xl leading-relaxed">
@@ -31,7 +31,7 @@ import { ACQUISITION_MAILTO, SITE, DISCLAIMER_DATE } from '../config/site';
           <p class="text-xs uppercase tracking-[2px] text-white/50 font-semibold mb-2">Acquisition Contact</p>
           <a
             href={`mailto:${SITE.email}`}
-            class="block text-2xl sm:text-3xl font-display text-white hover:text-[#B85C38] transition-colors break-all"
+            class="block text-xl sm:text-2xl md:text-3xl font-display text-white hover:text-[#B85C38] transition-colors break-all"
           >
             {SITE.email}
           </a>
@@ -57,9 +57,9 @@ import { ACQUISITION_MAILTO, SITE, DISCLAIMER_DATE } from '../config/site';
     </p>
 
     <!-- Bottom bar -->
-    <div class="pt-8 border-t border-[#EDE4D7] text-xs text-[#6B6B6B] flex flex-col md:flex-row gap-y-4 items-center justify-between">
+    <div class="pt-8 border-t border-[#EDE4D7] text-xs text-[#6B6B6B] flex flex-col md:flex-row gap-y-3 items-center justify-between text-center md:text-left">
       <div>&copy; 2026 phxsugaring.com. Premium domain available for acquisition.</div>
-      <div class="flex items-center gap-x-5">
+      <div class="max-w-sm md:max-w-none">
         <span>Local SEO &bull; Natural beauty positioning &bull; Strong brand clarity</span>
       </div>
     </div>

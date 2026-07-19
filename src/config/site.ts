@@ -7,6 +7,7 @@ export const SITE = {
   email: 'sales@desertrich.com',
   locale: 'en_US',
   location: 'Phoenix, Arizona',
+  googleSiteVerification: 'siJ_qFI-QxHq5PgRdammMgpCLNaXpiu73S-MoUqIbS0',
 } as const;
 
 export const CF_IMAGES = {

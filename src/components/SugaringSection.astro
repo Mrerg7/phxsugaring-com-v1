@@ -4,8 +4,8 @@ import { getCollection } from 'astro:content';
 const benefits = (await getCollection('benefits')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<section id="sugaring" class="bg-white border-y border-[#EDE4D7]">
-  <div class="max-w-5xl mx-auto px-6 py-16 md:py-20">
+<section id="sugaring" class="relative z-10 bg-white border-y border-[#EDE4D7]">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
     <div class="text-center mb-12">
       <div class="modern-pill inline-block mb-3">ANCIENT METHOD &bull; MODERN APPEAL</div>
       <h2 class="section-header tracking-tight">The natural, gentle alternative to traditional waxing</h2>
@@ -19,7 +19,7 @@ const benefits = (await getCollection('benefits')).sort((a, b) => a.data.order -
 
     <div class="grid md:grid-cols-2 gap-6 mt-12">
       {benefits.map((benefit) => (
-        <div class="clean-section rounded-3xl p-8">
+        <div class="clean-section rounded-2xl sm:rounded-3xl p-6 sm:p-8">
           <h4 class="font-semibold text-lg mb-4 flex items-center gap-x-3">
             <span class="benefit-icon">
               <i class={`fa-solid ${benefit.data.icon} text-[#B85C38]`}></i>

@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 const useCases = (await getCollection('useCases')).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<section id="use-cases" class="max-w-6xl mx-auto px-6 py-16">
+<section id="use-cases" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
   <div class="text-center mb-10">
     <div class="modern-pill inline-block mb-3">VERSATILE FOR PHOENIX</div>
     <h2 class="section-header tracking-tight">Ideal for a specialized sugaring business in Phoenix</h2>
@@ -12,7 +12,7 @@ const useCases = (await getCollection('useCases')).sort((a, b) => a.data.order -
 
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     {useCases.map((useCase) => (
-      <div class="clean-section rounded-3xl p-8">
+      <div class="clean-section rounded-2xl sm:rounded-3xl p-6 sm:p-8">
         <div class="flex items-center gap-x-4 mb-4">
           <i class={`fa-solid ${useCase.data.icon} text-[#B85C38] text-xl`}></i>
           <h4 class="font-semibold">{useCase.data.title}</h4>
