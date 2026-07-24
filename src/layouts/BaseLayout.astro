@@ -58,6 +58,42 @@ const structuredData = {
         '@type': 'Offer',
         url: ACQUISITION_MAILTO,
         availability: 'https://schema.org/InStock',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '0',
+          priceCurrency: 'USD',
+          priceType: 'https://schema.org/ListPrice',
+          name: 'Negotiable — contact for pricing',
+        },
+        hasMerchantReturnPolicy: {
+          '@type': 'MerchantReturnPolicy',
+          returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+          applicableCountry: 'US',
+          merchantReturnDays: 0,
+          returnMethod: 'https://schema.org/ReturnNotPermitted',
+          returnFees: 'https://schema.org/ReturnFeesNotPermitted',
+        },
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingRate: {
+            '@type': 'MonetaryAmount',
+            value: '0',
+            currency: 'USD',
+          },
+          shippingDestination: {
+            '@type': 'DefinedRegion',
+            addressCountry: 'US',
+          },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: {
+              '@type': 'QuantitativeValue',
+              minValue: 0,
+              maxValue: 1,
+              unitCode: 'DAY',
+            },
+          },
+        },
         seller: {
           '@type': 'Organization',
           name: SITE.name,
