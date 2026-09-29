@@ -88,34 +88,43 @@ import Icon from './Icon.astro';
 </nav>
 
 <script>
+  function syncThemeIcon() {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('.theme-icon-sun').forEach((el) => el.classList.toggle('hidden', dark));
+    document.querySelectorAll('.theme-icon-moon').forEach((el) => el.classList.toggle('hidden', !dark));
+  }
+
+  function setTheme(next) {
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+    syncThemeIcon();
+  }
+
   function initNav() {
     const nav = document.getElementById('site-nav');
     const btn = document.getElementById('mobile-menu-btn');
     const menu = document.getElementById('mobile-menu');
     const themeBtn = document.getElementById('theme-toggle');
+    if (!nav || nav.dataset.navReady === '1') {
+      syncThemeIcon();
+      return;
+    }
+    nav.dataset.navReady = '1';
 
     const onScroll = () => {
-      if (!nav) return;
       if (window.scrollY > 16) nav.classList.add('nav-scrolled');
       else nav.classList.remove('nav-scrolled');
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-
-    const syncThemeIcon = () => {
-      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-      document.querySelectorAll('.theme-icon-sun').forEach((el) => el.classList.toggle('hidden', dark));
-      document.querySelectorAll('.theme-icon-moon').forEach((el) => el.classList.toggle('hidden', !dark));
-    };
     syncThemeIcon();
 
-    themeBtn?.addEventListener('click', () => {
+    themeBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
       const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      try {
-        localStorage.setItem('theme', next);
-      } catch {}
-      syncThemeIcon();
+      setTheme(next);
     });
 
     btn?.addEventListener('click', () => {
