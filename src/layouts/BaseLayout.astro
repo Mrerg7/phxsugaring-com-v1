@@ -1,12 +1,22 @@
 ---
 import '../styles/global.css';
-import { SITE, OG_IMAGE, ACQUISITION_MAILTO } from '../config/site';
+import {
+  SITE,
+  OG_IMAGE,
+  ACQUISITION_MAILTO,
+  OFFER_MAILTO,
+  BUY_NOW_MAILTO,
+  AGENT_MAILTO,
+} from '../config/site';
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
   noindex?: boolean;
+  type?: 'website' | 'article';
+  publishedDate?: string;
+  modifiedDate?: string;
 }
 
 const {
@@ -14,10 +24,12 @@ const {
   description = SITE.description,
   ogImage = OG_IMAGE,
   noindex = false,
+  type = 'website',
+  publishedDate = '2026-07-02',
+  modifiedDate = '2026-09-29',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, SITE.url);
-const publishedDate = '2026-07-02';
+const canonicalURL = new URL(Astro.url.pathname, SITE.url).href;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -27,53 +39,80 @@ const structuredData = {
       '@id': `${SITE.url}/#website`,
       url: SITE.url,
       name: SITE.name,
-      description,
+      description: SITE.description,
       inLanguage: 'en-US',
+      publisher: { '@id': `${SITE.url}/#organization` },
     },
     {
       '@type': 'WebPage',
-      '@id': `${SITE.url}/#webpage`,
-      url: SITE.url,
+      '@id': `${canonicalURL}#webpage`,
+      url: canonicalURL,
       name: title,
       description,
       isPartOf: { '@id': `${SITE.url}/#website` },
+      about: { '@id': `${SITE.url}/#product` },
       datePublished: publishedDate,
-      dateModified: publishedDate,
+      dateModified: modifiedDate,
       inLanguage: 'en-US',
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: ogImage,
+      },
     },
     {
       '@type': 'Product',
       '@id': `${SITE.url}/#product`,
-      name: 'phxsugaring.com Premium Domain Name',
+      name: 'phxsugaring.com',
+      alternateName: 'phxsugaring.com Premium Domain Name',
       description:
-        'Premium .com domain for professional sugaring and natural hair removal in Phoenix, Arizona. Available for acquisition.',
+        'Premium .com domain for professional sugaring and natural hair removal in Phoenix, Arizona. Available for acquisition with escrow-protected transfer.',
       url: SITE.url,
-      image: OG_IMAGE,
+      image: [ogImage],
       category: 'Premium Domain Name',
+      sku: 'phxsugaring-com',
+      mpn: 'phxsugaring.com',
       brand: {
         '@type': 'Brand',
         name: 'phxsugaring.com',
       },
+      additionalProperty: [
+        {
+          '@type': 'PropertyValue',
+          name: 'TLD',
+          value: '.com',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Domain Length',
+          value: '12 characters (excluding TLD)',
+        },
+        {
+          '@type': 'PropertyValue',
+          name: 'Category',
+          value: 'Local SEO / Beauty / Phoenix',
+        },
+      ],
       offers: {
         '@type': 'Offer',
-        url: ACQUISITION_MAILTO,
+        url: SITE.url,
         availability: 'https://schema.org/InStock',
-        price: 0,
         priceCurrency: 'USD',
+        price: '0',
+        priceValidUntil: '2027-12-31',
+        itemCondition: 'https://schema.org/NewCondition',
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
-          price: 0,
           priceCurrency: 'USD',
-          priceType: 'https://schema.org/ListPrice',
-          name: 'Negotiable — contact for pricing',
+          price: '0',
+          name: 'Negotiable — contact for firm pricing',
         },
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy',
           returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
           applicableCountry: 'US',
           merchantReturnDays: 0,
-          returnMethod: 'https://schema.org/ReturnNotPermitted',
-          returnFees: 'https://schema.org/ReturnFeesNotPermitted',
+          returnMethod: 'https://schema.org/ReturnByMail',
+          returnFees: 'https://schema.org/FreeReturn',
         },
         shippingDetails: {
           '@type': 'OfferShippingDetails',
@@ -90,71 +129,84 @@ const structuredData = {
             '@type': 'ShippingDeliveryTime',
             handlingTime: {
               '@type': 'QuantitativeValue',
+              minValue: 1,
+              maxValue: 5,
+              unitCode: 'DAY',
+            },
+            transitTime: {
+              '@type': 'QuantitativeValue',
               minValue: 0,
               maxValue: 1,
               unitCode: 'DAY',
             },
           },
         },
-        seller: {
-          '@type': 'Organization',
-          name: SITE.name,
-          email: SITE.email,
-        },
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: 5,
-        bestRating: 5,
-        worstRating: 1,
-        ratingCount: 7,
-        reviewCount: 7,
-      },
-      review: {
-        '@type': 'Review',
-        reviewRating: {
-          '@type': 'Rating',
-          ratingValue: 5,
-          bestRating: 5,
-        },
-        author: {
-          '@type': 'Organization',
-          name: 'phxsugaring.com',
-        },
-        reviewBody:
-          'Premium domain name with strong branding potential for the Phoenix sugaring market. Highly recognizable .com TLD with excellent SEO value.',
+        seller: { '@id': `${SITE.url}/#organization` },
       },
     },
     {
       '@type': 'Organization',
       '@id': `${SITE.url}/#organization`,
-      name: SITE.name,
+      name: SITE.brand,
+      alternateName: SITE.name,
       url: SITE.url,
       email: SITE.email,
+      logo: `${SITE.url}/favicon.svg`,
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Phoenix',
         addressRegion: 'AZ',
         addressCountry: 'US',
       },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: SITE.email,
+        availableLanguage: ['English'],
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalURL}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: SITE.url,
+        },
+      ],
     },
   ],
 };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#B85C38" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content={noindex ? 'noindex' : 'index, follow, max-image-preview:large'} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+    <meta name="author" content={SITE.brand} />
+    <meta
+      name="keywords"
+      content="buy phxsugaring.com, phxsugaring.com for sale, premium domain names, Phoenix sugaring domain, domain marketplace, investment domains, local SEO domain"
+    />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -165,6 +217,9 @@ const structuredData = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="phxsugaring.com — Premium Domain for Phoenix Sugaring" />
     <meta property="og:locale" content={SITE.locale} />
+    <meta property="product:price:amount" content="0" />
+    <meta property="product:price:currency" content="USD" />
+    <meta property="product:availability" content="in stock" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -173,13 +228,50 @@ const structuredData = {
     <meta name="twitter:image:alt" content="phxsugaring.com — Premium Domain for Phoenix Sugaring" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://imagedelivery.net" crossorigin />
+    <link rel="dns-prefetch" href="https://imagedelivery.net" />
+
     {SITE.googleSiteVerification && (
       <meta name="google-site-verification" content={SITE.googleSiteVerification} />
     )}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Self-hosted font CSS is inlined via global.css @font-face for speed -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <slot />
+
+    <!-- Hidden mailto helpers for CTA tracking hooks -->
+    <div class="sr-only" aria-hidden="true" data-cta-targets>
+      <a id="cta-offer" href={OFFER_MAILTO}>Make Offer</a>
+      <a id="cta-buy" href={BUY_NOW_MAILTO}>Buy Now</a>
+      <a id="cta-agent" href={AGENT_MAILTO}>Contact Agent</a>
+      <a id="cta-inquire" href={ACQUISITION_MAILTO}>Inquire</a>
+    </div>
+
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="mailto:"], a[data-cta], button[data-cta]') : null;
+        if (!a) return;
+        var label = a.getAttribute('data-cta') || a.textContent.trim().slice(0, 64);
+        window.dataLayer.push({ event: 'cta_click', cta_label: label });
+      });
+    </script>
   </body>
 </html>

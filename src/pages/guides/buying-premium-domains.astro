@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { BUY_NOW_MAILTO, SITE } from '../../config/site';
+---
+
+<BaseLayout
+  title={`Buying Premium Domains Safely | Escrow Guide | ${SITE.brand}`}
+  description="Step-by-step guide to buying premium domain names: Escrow.com, registrar push, auth codes, and due diligence for investment domains and end-user acquisitions."
+  type="article"
+  publishedDate="2026-09-15"
+  modifiedDate="2026-09-29"
+>
+  <Nav />
+  <main id="main" class="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    <p class="text-sm text-[var(--fg-subtle)] mb-3">
+      <a href="/guides/" class="hover:text-[var(--accent)]">Guides</a> / Buyers guide
+    </p>
+    <h1 class="section-header mb-4">Buying premium domains safely</h1>
+    <p class="text-lg text-[var(--fg-muted)] mb-8">
+      Whether you are buying investment domains or a single operating asset like <strong>phxsugaring.com</strong>, use a
+      protected transfer path. Never wire directly to an unknown personal account.
+    </p>
+
+    <article class="space-y-6 text-[var(--fg-muted)] leading-relaxed">
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">1. Agree on price & terms</h2>
+        <p>
+          Confirm the exact string, included renewals (if any), and who pays escrow fees. Document intended use and close
+          date in email before funding.
+        </p>
+      </section>
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">2. Open Escrow.com (or equivalent)</h2>
+        <p>
+          Buyer funds escrow. Seller initiates a registrar push or provides an auth/EPP code after verification. Escrow
+          releases funds only after the buyer confirms control in their account.
+        </p>
+      </section>
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">3. Transfer & DNS cutover</h2>
+        <p>
+          After you control the domain, update nameservers (Cloudflare recommended on the free plan), enable HTTPS, and
+          submit an updated XML sitemap in Google Search Console.
+        </p>
+      </section>
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">4. Post-purchase SEO</h2>
+        <p>
+          Keep canonical tags, Organization/Product schema, and internal links to supporting guides. Avoid duplicate
+          www/non-www content with a 301 to the apex host.
+        </p>
+      </section>
+    </article>
+
+    <div class="mt-10 flex flex-col sm:flex-row gap-3">
+      <a href={BUY_NOW_MAILTO} class="btn-primary" data-cta="guide_buy_cta">Buy {SITE.name} via Escrow</a>
+      <a href="/#acquire" class="btn-secondary">See all CTAs</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+import Icon from './Icon.astro';
+
+const proof = [
+  {
+    quote:
+      'Local keyword domains like this cut paid acquisition cost for brick-and-mortar beauty brands. Buyers pay for intent, not decoration.',
+    role: 'Domain investor insight',
+  },
+  {
+    quote:
+      'Sugaring demand is rising as clients look for gentler alternatives to wax. Owning the clearest Phoenix name is a durable moat.',
+    role: 'Beauty niche positioning',
+  },
+  {
+    quote:
+      'Escrow-backed transfers and clear use-case storytelling convert faster than blank parking pages — especially on premium .coms.',
+    role: 'Marketplace conversion pattern',
+  },
+];
+---
+
+<section id="proof" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pb-12 sm:pb-16">
+  <div class="text-center mb-10 fade-up">
+    <div class="modern-pill inline-block mb-3">SOCIAL PROOF</div>
+    <h2 class="section-header tracking-tight">Why serious buyers move on names like this</h2>
+    <p class="mt-3 max-w-2xl mx-auto text-[var(--fg-muted)]">
+      Industry patterns from premium domain sales — not fabricated customer reviews.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    {proof.map((item) => (
+      <blockquote class="value-card clean-section rounded-2xl sm:rounded-3xl p-6 sm:p-8 fade-up">
+        <Icon name="users" size={20} class="text-[var(--accent)] mb-4" />
+        <p class="text-[var(--fg)] leading-relaxed mb-4">“{item.quote}”</p>
+        <footer class="text-sm font-semibold text-[var(--fg-subtle)]">{item.role}</footer>
+      </blockquote>
+    ))}
+  </div>
+
+  <div class="mt-8 clean-section rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between fade-up">
+    <div>
+      <p class="font-semibold text-[var(--fg)]">Recent category activity</p>
+      <p class="text-sm text-[var(--fg-muted)] mt-1">
+        Beauty and local-service .coms continue to clear through Escrow at negotiated premiums as studios compete for search intent.
+      </p>
+    </div>
+    <div class="modern-pill whitespace-nowrap">Exclusive · One-of-one asset</div>
+  </div>
+</section>

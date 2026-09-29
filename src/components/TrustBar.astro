@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+---
+
+<section class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 -mt-6 sm:-mt-8 mb-10 sm:mb-12" aria-label="Trust signals">
+  <div class="clean-section rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[var(--shadow)]">
+    <ul class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-sm">
+      <li class="flex items-center gap-2.5 min-h-[48px] px-2">
+        <span class="benefit-icon"><Icon name="shield" size={18} /></span>
+        <span class="font-medium text-[var(--fg)] leading-snug">Escrow.com protected transfer</span>
+      </li>
+      <li class="flex items-center gap-2.5 min-h-[48px] px-2">
+        <span class="benefit-icon"><Icon name="lock" size={18} /></span>
+        <span class="font-medium text-[var(--fg)] leading-snug">TLS / HTTPS edge security</span>
+      </li>
+      <li class="flex items-center gap-2.5 min-h-[48px] px-2">
+        <span class="benefit-icon"><Icon name="badge" size={18} /></span>
+        <span class="font-medium text-[var(--fg)] leading-snug">Registrar push or auth code</span>
+      </li>
+      <li class="flex items-center gap-2.5 min-h-[48px] px-2">
+        <span class="benefit-icon"><Icon name="clock" size={18} /></span>
+        <span class="font-medium text-[var(--fg)] leading-snug">Response within 24 hours</span>
+      </li>
+    </ul>
+  </div>
+</section>

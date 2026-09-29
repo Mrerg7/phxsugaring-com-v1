@@ -1,23 +1,27 @@
 ---
 import { ACQUISITION_MAILTO, SITE, DISCLAIMER_DATE } from '../config/site';
+import Icon from './Icon.astro';
+
+const footerLinks = [
+  { href: '/#why', label: 'Why This Domain' },
+  { href: '/#sugaring', label: 'About Sugaring' },
+  { href: '/#use-cases', label: 'Use Cases' },
+  { href: '/guides/', label: 'Guides' },
+  { href: '/guides/domain-valuation/', label: 'Domain Valuation' },
+  { href: '/guides/phoenix-sugaring-market/', label: 'Market Trends' },
+  { href: '/#acquire', label: 'Acquire' },
+];
 ---
 
-<footer class="relative z-10 bg-white border-t border-[#EDE4D7]">
+<footer class="relative z-10 border-t border-[var(--border)]" style="background: var(--bg-elevated);">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-    <!-- Sophisticated Domain Acquisition CTA -->
-    <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[#B85C38]/20 bg-gradient-to-br from-[#2D2D2D] via-[#1a1a1a] to-[#B85C38]/15 p-6 sm:p-8 md:p-12 mb-10 sm:mb-12 text-white">
-      <div
-        class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#B85C38]/10 blur-3xl pointer-events-none"
-        aria-hidden="true"
-      ></div>
-      <div
-        class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-[#A04E30]/10 blur-3xl pointer-events-none"
-        aria-hidden="true"
-      ></div>
-
+    <div
+      class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-[var(--accent)]/20 p-6 sm:p-8 md:p-12 mb-10 sm:mb-12 text-white"
+      style="background: linear-gradient(135deg, #1f1c19 0%, #2a221c 55%, rgba(154,79,46,0.28) 100%);"
+    >
       <div class="relative z-10 grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
         <div>
-          <p class="text-xs uppercase tracking-[3px] text-[#B85C38] font-extrabold mb-4">Domain Available for Acquisition</p>
+          <p class="text-xs uppercase tracking-[3px] text-[#D4A07A] font-extrabold mb-4">Domain Available for Acquisition</p>
           <h2 class="font-display text-2xl sm:text-3xl md:text-4xl tracking-tight mb-4">
             phxsugaring.com — A Premium Phoenix Beauty Asset
           </h2>
@@ -31,37 +35,46 @@ import { ACQUISITION_MAILTO, SITE, DISCLAIMER_DATE } from '../config/site';
           <p class="text-xs uppercase tracking-[2px] text-white/50 font-semibold mb-2">Acquisition Contact</p>
           <a
             href={`mailto:${SITE.email}`}
-            class="block text-xl sm:text-2xl md:text-3xl font-display text-white hover:text-[#B85C38] transition-colors break-all"
+            class="block text-xl sm:text-2xl md:text-3xl font-display text-white hover:text-[#D4A07A] transition-colors break-all"
           >
             {SITE.email}
           </a>
           <a
             href={ACQUISITION_MAILTO}
-            class="mt-6 inline-flex w-full items-center justify-center gap-x-3 px-6 py-4 bg-gradient-to-r from-[#B85C38] to-[#A04E30] text-white font-extrabold rounded-2xl hover:brightness-110 transition-all"
+            data-cta="footer_inquire"
+            class="mt-6 inline-flex w-full items-center justify-center gap-x-3 px-6 py-4 min-h-[48px] bg-[var(--accent)] text-white font-extrabold rounded-2xl hover:brightness-110 transition-all"
           >
             <span>Inquire About Acquisition</span>
-            <i class="fa-solid fa-arrow-right"></i>
+            <Icon name="arrow-right" size={18} />
           </a>
           <p class="mt-4 text-[11px] text-white/40 text-center tracking-wide">
-            Confidential inquiries &bull; Response within 24 hours
+            Confidential inquiries · Response within 24 hours
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Disclaimer -->
-    <p class="text-xs text-[#6B6B6B] leading-relaxed max-w-4xl mb-10">
-      This website is for demonstration and informational purposes only. It does not constitute an offer of services,
-      a commitment to deploy, or a guarantee of outcomes. All statistics, projections, and references to specific
-      technologies are based on publicly available information as of {DISCLAIMER_DATE} and are subject to change.
+    <nav class="mb-10" aria-label="Footer">
+      <ul class="flex flex-wrap gap-x-5 gap-y-3 text-sm">
+        {footerLinks.map((link) => (
+          <li>
+            <a href={link.href} class="text-[var(--fg-muted)] hover:text-[var(--accent)] transition-colors">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <p class="text-xs text-[var(--fg-subtle)] leading-relaxed max-w-4xl mb-10">
+      This website markets the domain name {SITE.name} for acquisition. It does not operate a sugaring studio or offer
+      clinical services. Statistics and market commentary are informational as of {DISCLAIMER_DATE} and subject to change.
+      Transactions may proceed via Escrow.com or equivalent protected transfer.
     </p>
 
-    <!-- Bottom bar -->
-    <div class="pt-8 border-t border-[#EDE4D7] text-xs text-[#6B6B6B] flex flex-col md:flex-row gap-y-3 items-center justify-between text-center md:text-left">
-      <div>&copy; 2026 phxsugaring.com. Premium domain available for acquisition.</div>
-      <div class="max-w-sm md:max-w-none">
-        <span>Local SEO &bull; Natural beauty positioning &bull; Strong brand clarity</span>
-      </div>
+    <div class="pt-8 border-t border-[var(--border)] text-xs text-[var(--fg-subtle)] flex flex-col md:flex-row gap-y-3 items-center justify-between text-center md:text-left">
+      <div>&copy; 2026 {SITE.name}. Premium domain available for acquisition.</div>
+      <div>Local SEO · Natural beauty positioning · Cloudflare edge delivery</div>
     </div>
   </div>
 </footer>

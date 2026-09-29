@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import { SITE } from '../../config/site';
+
+const guides = [
+  {
+    href: '/guides/domain-valuation/',
+    title: 'How to value a premium local domain',
+    summary: 'Framework for pricing keyword .coms like phxsugaring.com using comps, search intent, and end-user demand.',
+    tag: 'Valuation',
+  },
+  {
+    href: '/guides/phoenix-sugaring-market/',
+    title: 'Phoenix sugaring market trends',
+    summary: 'Why natural hair removal demand supports brandable local domains in the Phoenix metro.',
+    tag: 'Market trends',
+  },
+  {
+    href: '/guides/buying-premium-domains/',
+    title: 'Buying premium domains safely',
+    summary: 'Escrow, registrar push, auth codes, and due diligence for investment and end-user acquisitions.',
+    tag: 'Buyers guide',
+  },
+];
+---
+
+<BaseLayout
+  title={`Domain Guides | Premium Domain Insights | ${SITE.brand}`}
+  description="Guides on premium domain valuation, Phoenix sugaring market trends, and how to buy investment domains safely via escrow."
+  type="website"
+>
+  <Nav />
+  <main id="main" class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    <p class="modern-pill inline-block mb-4">CONTENT HUB</p>
+    <h1 class="section-header mb-3">Domain valuation guides & market insights</h1>
+    <p class="text-[var(--fg-muted)] text-lg mb-10 max-w-2xl">
+      Weekly-ready editorial for domain authority: valuation methods, niche demand, and safe acquisition playbooks —
+      linked from the phxsugaring.com sales page.
+    </p>
+
+    <div class="grid gap-5">
+      {guides.map((g) => (
+        <a
+          href={g.href}
+          class="value-card clean-section rounded-2xl p-6 sm:p-7 block group"
+        >
+          <span class="text-xs font-semibold tracking-wide text-[var(--accent)] uppercase">{g.tag}</span>
+          <h2 class="mt-2 text-xl font-semibold text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors flex items-center gap-2">
+            {g.title}
+            <Icon name="arrow-right" size={16} class="opacity-0 group-hover:opacity-100 transition-opacity" />
+          </h2>
+          <p class="mt-2 text-[var(--fg-muted)] text-sm leading-relaxed">{g.summary}</p>
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-12 clean-section rounded-2xl p-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+      <div>
+        <h2 class="font-semibold text-[var(--fg)]">Ready to acquire phxsugaring.com?</h2>
+        <p class="text-sm text-[var(--fg-muted)] mt-1">Return to the sales page for Buy Now, Make Offer, or Contact Agent.</p>
+      </div>
+      <a href="/#acquire" class="btn-primary shrink-0">View acquisition options</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

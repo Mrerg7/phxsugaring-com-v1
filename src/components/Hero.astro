@@ -1,89 +1,123 @@
 ---
-import { ACQUISITION_MAILTO, cfImageUrl, CF_IMAGES } from '../config/site';
+import {
+  ACQUISITION_MAILTO,
+  OFFER_MAILTO,
+  BUY_NOW_MAILTO,
+  AGENT_MAILTO,
+  SITE,
+  cfImageUrl,
+  CF_IMAGES,
+} from '../config/site';
+import Icon from './Icon.astro';
 
 const heroImage = cfImageUrl(CF_IMAGES.heroImageId);
 ---
 
-<header id="hero" class="hero-parallax relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-[#EDE4D7]">
-  <!-- Parallax background image -->
+<header
+  id="hero"
+  class="hero-parallax relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
+  style="background: var(--bg-muted);"
+>
   <img
     id="hero-parallax-bg"
-    src={heroImage}
+    src={`${heroImage}?width=1920&quality=75&format=auto`}
+    srcset={`${heroImage}?width=768&quality=70&format=auto 768w, ${heroImage}?width=1280&quality=72&format=auto 1280w, ${heroImage}?width=1920&quality=75&format=auto 1920w`}
+    sizes="100vw"
     alt=""
-    class="hero-parallax__bg fixed inset-0 z-0 h-full w-full object-contain md:object-cover object-center pointer-events-none select-none"
+    class="hero-parallax__bg fixed inset-0 z-0 h-full w-full object-cover object-center pointer-events-none select-none"
     loading="eager"
     fetchpriority="high"
+    decoding="async"
+    width="1920"
+    height="1080"
     aria-hidden="true"
   />
 
-  <!-- Gradient overlay -->
   <div
-    class="hero-parallax__overlay fixed inset-0 z-[1] bg-gradient-to-b from-black/45 via-black/25 to-[#F8F1E9]/92"
+    class="hero-parallax__overlay fixed inset-0 z-[1] pointer-events-none"
+    style="background: linear-gradient(to bottom, var(--hero-overlay-top), var(--hero-overlay-mid), var(--hero-overlay-bottom));"
     aria-hidden="true"
   ></div>
 
-  <div class="relative z-[2] w-full max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
-    <div class="inline-flex items-center gap-x-2 mb-4 sm:mb-6 max-w-full">
-      <div class="modern-pill flex flex-wrap items-center justify-center gap-x-2 px-3 sm:px-4 py-1.5 rounded-2xl text-[10px] sm:text-xs font-bold tracking-[0.5px] sm:tracking-[1px] bg-white/90">
-        <i class="fa-solid fa-leaf fa-xs"></i>
-        <span>NATURAL &bull; ANCIENT &bull; GENTLE</span>
+  <div class="relative z-[2] w-full max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-24 text-center">
+    <p class="font-display text-white/95 text-sm sm:text-base tracking-[0.18em] uppercase mb-5 drop-shadow-sm fade-up is-visible">
+      {SITE.name}
+    </p>
+
+    <div class="inline-flex items-center gap-x-2 mb-5 sm:mb-6 max-w-full fade-up is-visible" style="transition-delay: 80ms;">
+      <div class="modern-pill flex flex-wrap items-center justify-center gap-x-2 px-3 sm:px-4 py-1.5 bg-white/90 text-[10px] sm:text-xs font-bold tracking-[0.5px]">
+        <Icon name="leaf" size={12} class="text-[var(--accent)]" />
+        <span>PREMIUM DOMAIN FOR SALE</span>
       </div>
     </div>
 
-    <h1 class="domain-name tracking-tighter mb-3 sm:mb-4 text-white drop-shadow-md px-1">phxsugaring.com</h1>
+    <h1 class="domain-name tracking-tighter mb-4 sm:mb-5 text-white drop-shadow-md px-1 fade-up is-visible" style="transition-delay: 120ms;">
+      phxsugaring.com
+    </h1>
 
-    <p class="max-w-2xl mx-auto text-lg sm:text-2xl md:text-3xl font-semibold tracking-tight text-white/95 mb-4 sm:mb-5 drop-shadow-sm px-1">
-      The clean, modern domain for<br class="hidden sm:block" /> professional sugaring in Phoenix.
+    <p class="max-w-2xl mx-auto text-lg sm:text-2xl md:text-[1.7rem] font-semibold tracking-tight text-white/95 mb-3 sm:mb-4 drop-shadow-sm px-1 fade-up is-visible" style="transition-delay: 180ms;">
+      The clean, modern domain for professional sugaring in Phoenix.
     </p>
 
-    <p class="max-w-md mx-auto text-base sm:text-lg text-white/85 mb-8 sm:mb-10 px-1">
-      Own the most direct and searchable name for the natural, ancient hair removal method clients are seeking.
+    <p class="max-w-lg mx-auto text-base sm:text-lg text-white/85 mb-6 px-1 fade-up is-visible" style="transition-delay: 220ms;">
+      Available now — strong local SEO, natural beauty niche, escrow-ready transfer.
     </p>
 
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full max-w-md sm:max-w-none mx-auto">
-      <a
-        href={ACQUISITION_MAILTO}
-        class="group inline-flex items-center justify-center gap-x-3 w-full sm:w-auto px-6 sm:px-9 py-4 bg-[#B85C38] hover:bg-[#A04E30] text-white font-semibold text-base sm:text-lg rounded-3xl transition-all active:scale-[0.985] shadow-lg shadow-[#B85C38]/30 min-h-[48px]"
-      >
-        <span>Inquire to Acquire</span>
-        <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition-transform"></i>
+    <!-- Above-the-fold price + CTA cluster -->
+    <div
+      class="mx-auto mb-7 sm:mb-8 max-w-md rounded-2xl border border-white/25 bg-black/30 backdrop-blur-md px-5 py-4 text-white fade-up is-visible"
+      style="transition-delay: 260ms;"
+    >
+      <div class="flex items-center justify-between gap-3 flex-wrap">
+        <div class="text-left">
+          <p class="text-[11px] uppercase tracking-[0.16em] text-white/60 font-semibold">Asking</p>
+          <p class="text-2xl font-display font-bold leading-tight">{SITE.priceDisplay}</p>
+          <p class="text-xs text-white/70 mt-0.5">{SITE.priceHint}</p>
+        </div>
+        <div class="text-right text-xs text-white/75 space-y-1">
+          <p class="inline-flex items-center gap-1.5 justify-end"><Icon name="shield" size={14} /> Escrow.com ready</p>
+          <p class="inline-flex items-center gap-1.5 justify-end"><Icon name="lock" size={14} /> HTTPS secured</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full max-w-xl mx-auto fade-up is-visible" style="transition-delay: 300ms;">
+      <a href={BUY_NOW_MAILTO} data-cta="hero_buy_now" class="btn-primary w-full sm:w-auto shadow-lg">
+        <span>Buy Now</span>
+        <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-0.5" />
       </a>
-
-      <a
-        href="#sugaring"
-        class="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-4 border border-white/40 hover:bg-white/10 text-white font-semibold text-base sm:text-lg rounded-3xl transition-all min-h-[48px]"
-      >
-        Learn About Sugaring
+      <a href={OFFER_MAILTO} data-cta="hero_make_offer" class="btn-secondary w-full sm:w-auto border-white/40 text-white hover:bg-white/10">
+        Make Offer
+      </a>
+      <a href={AGENT_MAILTO} data-cta="hero_contact_agent" class="btn-secondary w-full sm:w-auto border-white/40 text-white hover:bg-white/10">
+        Contact Agent
       </a>
     </div>
 
-    <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-white/80">
+    <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm text-white/85 fade-up is-visible" style="transition-delay: 340ms;">
       <div class="flex items-center gap-x-1.5">
-        <i class="fa-solid fa-check text-[#B85C38]"></i>
+        <Icon name="check" size={14} class="text-[#E8B89A]" />
         <span>Local SEO keywords</span>
       </div>
       <div class="flex items-center gap-x-1.5">
-        <i class="fa-solid fa-check text-[#B85C38]"></i>
+        <Icon name="check" size={14} class="text-[#E8B89A]" />
         <span>Natural beauty niche</span>
       </div>
       <div class="flex items-center gap-x-1.5">
-        <i class="fa-solid fa-check text-[#B85C38]"></i>
+        <Icon name="check" size={14} class="text-[#E8B89A]" />
         <span>Premium .com asset</span>
       </div>
     </div>
 
-    <div class="mt-8 sm:mt-12 animate-bounce hidden sm:block">
+    <p class="mt-5 text-xs text-white/70" id="viewer-note" aria-live="polite"></p>
+
+    <div class="mt-8 sm:mt-10 animate-bounce hidden sm:block">
       <a href="#why" class="inline-flex flex-col items-center gap-y-2 text-white/60 hover:text-white transition-colors">
         <span class="text-xs uppercase tracking-[3px] font-semibold">Scroll</span>
-        <i class="fa-solid fa-chevron-down"></i>
+        <Icon name="chevron-down" size={18} />
       </a>
     </div>
   </div>
-
-  <div
-    class="fixed bottom-0 left-1/2 -translate-x-1/2 w-[min(800px,90vw)] h-px bg-gradient-to-r from-transparent via-white/25 to-transparent z-[2] pointer-events-none"
-    aria-hidden="true"
-  ></div>
 </header>
 
 <script>
@@ -105,11 +139,9 @@ const heroImage = cfImageUrl(CF_IMAGES.heroImageId);
     function updateParallax() {
       const scrollY = window.scrollY;
       const heroHeight = hero.offsetHeight;
-
       if (scrollY <= heroHeight) {
         bg.style.transform = `translate3d(0, ${scrollY * 0.45}px, 0) scale(${scale})`;
       }
-
       ticking = false;
     }
 
@@ -123,10 +155,27 @@ const heroImage = cfImageUrl(CF_IMAGES.heroImageId);
       },
       { passive: true }
     );
-
     updateParallax();
   }
 
+  function initViewerNote() {
+    const el = document.getElementById('viewer-note');
+    if (!el) return;
+    try {
+      const key = 'ps_views_' + new Date().toISOString().slice(0, 10);
+      const n = Number(sessionStorage.getItem(key) || '0') + 1;
+      sessionStorage.setItem(key, String(n));
+      // Honest exclusivity signal — not a fake multi-user counter
+      el.textContent = 'Exclusive one-of-one .com · Serious inquiries only';
+    } catch {
+      el.textContent = 'Exclusive one-of-one .com · Serious inquiries only';
+    }
+  }
+
   initHeroParallax();
-  document.addEventListener('astro:page-load', initHeroParallax);
+  initViewerNote();
+  document.addEventListener('astro:page-load', () => {
+    initHeroParallax();
+    initViewerNote();
+  });
 </script>

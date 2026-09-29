@@ -1,0 +1,139 @@
+---
+import Icon from './Icon.astro';
+import { OFFER_MAILTO, SITE } from '../config/site';
+---
+
+<div
+  id="exit-intent"
+  class="fixed inset-0 z-[80] hidden items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exit-title"
+  aria-hidden="true"
+>
+  <div class="relative w-full max-w-md clean-section rounded-3xl p-6 sm:p-8 shadow-[var(--shadow)]">
+    <button
+      id="exit-close"
+      type="button"
+      class="absolute right-3 top-3 inline-flex items-center justify-center w-11 h-11 min-h-[44px] rounded-xl text-[var(--fg-muted)] hover:bg-[var(--bg-muted)]"
+      aria-label="Close"
+    >
+      <Icon name="x" size={18} />
+    </button>
+
+    <div class="modern-pill inline-block mb-4">LIMITED WINDOW</div>
+    <h2 id="exit-title" class="font-display text-2xl tracking-tight text-[var(--fg)] mb-2">
+      Before you go — claim intro pricing guidance
+    </h2>
+    <p class="text-[var(--fg-muted)] mb-6 text-sm leading-relaxed">
+      Leave your email and we’ll send valuation context for {SITE.name}, escrow steps, and a private offer path. No spam.
+    </p>
+
+    <form id="exit-form" class="space-y-3">
+      <label class="block text-sm font-medium text-[var(--fg)]" for="exit-email">Email</label>
+      <input
+        id="exit-email"
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        placeholder="you@studio.com"
+        class="w-full min-h-[48px] rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 text-base text-[var(--fg)] outline-none focus:ring-2 focus:ring-[var(--ring)]"
+      />
+      <button type="submit" class="btn-primary w-full" data-cta="exit_capture">
+        Get private pricing notes
+      </button>
+      <p class="text-xs text-[var(--fg-subtle)] text-center">
+        Or <a href={OFFER_MAILTO} class="underline underline-offset-2" data-cta="exit_offer">make an offer now</a>
+      </p>
+      <p id="exit-success" class="hidden text-sm text-center text-[var(--accent)] font-medium">
+        Thanks — check your inbox draft. We’ll follow up within 24 hours.
+      </p>
+    </form>
+  </div>
+</div>
+
+<script define:vars={{ emailTo: SITE.email, domain: SITE.name }}>
+  function initExitIntent() {
+    const modal = document.getElementById('exit-intent');
+    const closeBtn = document.getElementById('exit-close');
+    const form = document.getElementById('exit-form');
+    if (!modal || !form) return;
+
+    const STORAGE_KEY = 'ps_exit_shown_v1';
+    let shown = false;
+
+    const open = () => {
+      if (shown) return;
+      try {
+        if (localStorage.getItem(STORAGE_KEY)) return;
+      } catch {}
+      shown = true;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      modal.setAttribute('aria-hidden', 'false');
+      try {
+        localStorage.setItem(STORAGE_KEY, '1');
+      } catch {}
+      document.getElementById('exit-email')?.focus();
+    };
+
+    const close = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      modal.setAttribute('aria-hidden', 'true');
+    };
+
+    closeBtn?.addEventListener('click', close);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+
+    // Desktop exit intent
+    document.addEventListener('mouseout', (e) => {
+      if (e.clientY <= 0) open();
+    });
+
+    // Mobile: after meaningful scroll engagement
+    let maxScroll = 0;
+    window.addEventListener(
+      'scroll',
+      () => {
+        maxScroll = Math.max(maxScroll, window.scrollY);
+        if (maxScroll > window.innerHeight * 1.2 && !shown) {
+          // Soft delay on mobile via idle
+        }
+      },
+      { passive: true }
+    );
+
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      setTimeout(() => {
+        if (maxScroll > 400) open();
+      }, 28000);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('exit-email');
+      const email = input && 'value' in input ? String(input.value).trim() : '';
+      if (!email) return;
+      const subject = encodeURIComponent(`${domain} — pricing guide request`);
+      const body = encodeURIComponent(
+        `Please send private pricing guidance for ${domain}.\n\nMy email: ${email}\n\nIntended use:\nBudget range:\n`
+      );
+      window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
+      const success = document.getElementById('exit-success');
+      success?.classList.remove('hidden');
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'exit_capture', email_captured: true });
+      setTimeout(close, 1800);
+    });
+  }
+
+  initExitIntent();
+  document.addEventListener('astro:page-load', initExitIntent);
+</script>

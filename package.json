@@ -1,17 +1,20 @@
 {
   "name": "phxsugaring-com",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 127.0.0.1 --port 43123",
     "build": "astro build",
-    "preview": "astro preview",
-    "deploy": "wrangler deploy"
+    "preview": "astro preview --host 127.0.0.1 --port 43123",
+    "deploy": "npm run build && wrangler deploy",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^6.0.2",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/sora": "^5.3.0",
     "astro": "^5.16.0",
     "tailwindcss": "^3.4.17"
   },

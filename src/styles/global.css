@@ -1,4 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+@import '@fontsource-variable/fraunces/wght.css';
+@import '@fontsource-variable/sora/wght.css';
+
+:root,
+[data-theme='light'] {
+  --bg: #f7f3ec;
+  --bg-elevated: #ffffff;
+  --bg-muted: #efe8dc;
+  --fg: #1f1c19;
+  --fg-muted: #5c564e;
+  --fg-subtle: #7a736a;
+  --border: #e4d9c8;
+  --accent: #9a4f2e;
+  --accent-hover: #824226;
+  --accent-soft: rgba(154, 79, 46, 0.1);
+  --hero-overlay-top: rgba(20, 16, 12, 0.5);
+  --hero-overlay-mid: rgba(20, 16, 12, 0.28);
+  --hero-overlay-bottom: rgba(247, 243, 236, 0.94);
+  --nav-bg: rgba(247, 243, 236, 0.92);
+  --shadow: 0 18px 40px -24px rgba(31, 28, 25, 0.35);
+  --ring: rgba(154, 79, 46, 0.35);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #141210;
+  --bg-elevated: #1e1a17;
+  --bg-muted: #2a241f;
+  --fg: #f4efe7;
+  --fg-muted: #c4bbb0;
+  --fg-subtle: #9a9186;
+  --border: #3a322b;
+  --accent: #d4a07a;
+  --accent-hover: #e0b592;
+  --accent-soft: rgba(212, 160, 122, 0.14);
+  --hero-overlay-top: rgba(0, 0, 0, 0.62);
+  --hero-overlay-mid: rgba(0, 0, 0, 0.45);
+  --hero-overlay-bottom: rgba(20, 18, 16, 0.96);
+  --nav-bg: rgba(20, 18, 16, 0.92);
+  --shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.65);
+  --ring: rgba(212, 160, 122, 0.4);
+  color-scheme: dark;
+}
+
+/* Variable fonts loaded via @fontsource (self-hosted, no Google CDN) */
 
 @tailwind base;
 @tailwind components;
@@ -8,72 +52,168 @@
   html {
     overflow-x: hidden;
     max-width: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 
   body {
-    @apply bg-[#F8F1E9] text-[#2D2D2D] overflow-x-hidden font-sans antialiased;
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
     max-width: 100%;
+    font-family: 'Sora Variable', 'Sora', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg);
   }
 }
 
 @layer components {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100;
+    background: var(--accent);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+
   .font-display {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
     font-weight: 700;
+    font-optical-sizing: auto;
   }
 
   .section-header {
-    font-size: clamp(1.5rem, 5.5vw, 2.1rem);
-    line-height: 1.2;
+    font-family: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+    font-size: clamp(1.6rem, 5vw, 2.35rem);
+    line-height: 1.15;
     font-weight: 700;
-    color: #2D2D2D;
+    color: var(--fg);
+    letter-spacing: -0.02em;
   }
 
   .domain-name {
-    font-size: clamp(1.75rem, 9vw, 4.5rem);
-    line-height: 1.05;
+    font-family: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+    font-size: clamp(2rem, 9vw, 4.75rem);
+    line-height: 1.02;
     font-weight: 800;
-    letter-spacing: -0.04em;
-    color: #2D2D2D;
+    letter-spacing: -0.045em;
     overflow-wrap: anywhere;
   }
 
   .value-card {
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.2s ease;
   }
 
   .value-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
   }
 
   .nav-scrolled {
-    box-shadow: 0 1px 0 0 rgb(0 0 0 / 0.05);
+    box-shadow: 0 1px 0 0 var(--border);
   }
 
   .modern-pill {
-    background: rgba(184, 92, 56, 0.08);
-    color: #B85C38;
+    background: var(--accent-soft);
+    color: var(--accent);
     font-weight: 600;
     font-size: 0.75rem;
-    padding: 0.25rem 0.75rem;
+    padding: 0.3rem 0.85rem;
     border-radius: 9999px;
+    letter-spacing: 0.04em;
   }
 
   .clean-section {
-    background: white;
-    border: 1px solid #EDE4D7;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
   }
 
   .benefit-icon {
     width: 42px;
     height: 42px;
-    background: #F8F1E9;
+    background: var(--bg-muted);
     border-radius: 9999px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 48px;
+    padding: 0.9rem 1.5rem;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 1rem;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 24px -12px var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.985);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 48px;
+    padding: 0.9rem 1.35rem;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    font-weight: 600;
+    border-radius: 1rem;
+    background: transparent;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-muted);
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .hero-parallax__bg {
@@ -83,7 +223,7 @@
   @media (max-width: 767px) {
     .hero-parallax__bg {
       position: absolute;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center center;
       transform: none !important;
     }
@@ -94,8 +234,12 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-parallax__bg {
+    .hero-parallax__bg,
+    .fade-up,
+    .value-card {
       transform: none !important;
+      transition: none !important;
+      opacity: 1 !important;
     }
   }
 }

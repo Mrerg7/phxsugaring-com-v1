@@ -1,21 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 - Page Not Found | phxsugaring.com</title>
-  <meta name="robots" content="noindex">
-  <style>
-    body { font-family: system-ui, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100dvh; margin: 0; background: #F8F1E9; color: #2D2D2D; text-align: center; }
-    h1 { font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 0.5rem; }
-    a { color: #B85C38; }
-  </style>
-</head>
-<body>
-  <div>
-    <h1>404</h1>
-    <p>Page not found.</p>
-    <p><a href="/">Return to phxsugaring.com</a></p>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Page not found | phxsugaring.com</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f3ec;
+        --fg: #1f1c19;
+        --accent: #9a4f2e;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #141210;
+          --fg: #f4efe7;
+          --accent: #d4a07a;
+        }
+      }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        font-family: Georgia, 'Times New Roman', serif;
+        background: var(--bg);
+        color: var(--fg);
+        padding: 1.5rem;
+        text-align: center;
+      }
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0.85rem 1.4rem;
+        border-radius: 1rem;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-family: system-ui, sans-serif;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p style="letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.75rem; opacity: 0.7;">404</p>
+      <h1 style="font-size: clamp(1.8rem, 6vw, 2.6rem); margin: 0.4rem 0 0.8rem;">Page not found</h1>
+      <p style="font-family: system-ui, sans-serif; opacity: 0.75; margin-bottom: 1.5rem;">
+        The page you requested is not available. Return to the domain acquisition page.
+      </p>
+      <a href="/">Back to phxsugaring.com</a>
+    </div>
+  </body>
 </html>

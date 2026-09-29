@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# Prefer HTTPS apex
+Host: https://phxsugaring.com
+
 Sitemap: https://phxsugaring.com/sitemap-index.xml

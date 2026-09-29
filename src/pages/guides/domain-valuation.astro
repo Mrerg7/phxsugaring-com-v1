@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { ACQUISITION_MAILTO, SITE } from '../../config/site';
+---
+
+<BaseLayout
+  title={`How to Value Premium Domains | ${SITE.name} Guide | ${SITE.brand}`}
+  description="Learn how investors and end users value premium local domains like phxsugaring.com — search intent, comps, brandability, and escrow-ready pricing."
+  type="article"
+  publishedDate="2026-09-01"
+  modifiedDate="2026-09-29"
+>
+  <Nav />
+  <main id="main" class="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    <p class="text-sm text-[var(--fg-subtle)] mb-3">
+      <a href="/guides/" class="hover:text-[var(--accent)]">Guides</a> / Domain valuation
+    </p>
+    <h1 class="section-header mb-4">How to value a premium local domain</h1>
+    <p class="text-lg text-[var(--fg-muted)] mb-8">
+      Premium domain names are priced by end-user utility, not wholesale aftermarket averages alone. Here is a practical
+      framework buyers use for names like <strong>phxsugaring.com</strong>.
+    </p>
+
+    <article class="prose-domain space-y-6 text-[var(--fg-muted)] leading-relaxed">
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">1. Search intent & local SEO</h2>
+        <p>
+          Domains that combine a metro signal (PHX) with a high-intent service keyword (sugaring) capture typed-in and
+          branded search. That reduces paid media spend for studios and booking platforms — a cash-flow argument buyers
+          understand.
+        </p>
+      </section>
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">2. Brandability & length</h2>
+        <p>
+          Short, pronounceable .coms with clear category meaning outperform obscure invented strings in local services.
+          phxsugaring.com reads as a business name on first glance — a conversion advantage on ads, storefronts, and
+          Instagram bios.
+        </p>
+      </section>
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">3. Comparable sales</h2>
+        <p>
+          Use public escrow and industry reports for beauty, wellness, and geo-service comps. Adjust for TLD (.com
+          premium), exclusivity (one-of-one exact match), and whether the buyer is an end user versus an investor.
+        </p>
+      </section>
+      <section>
+        <h2 class="text-xl font-semibold text-[var(--fg)] mb-2">4. Liquidity & transfer risk</h2>
+        <p>
+          Clean ownership, unlocked registrar status, and willingness to use Escrow.com increase close rates. Ask for
+          auth-code or push timelines before wiring funds.
+        </p>
+      </section>
+    </article>
+
+    <div class="mt-10 flex flex-col sm:flex-row gap-3">
+      <a href={ACQUISITION_MAILTO} class="btn-primary" data-cta="guide_valuation_cta">Inquire about {SITE.name}</a>
+      <a href="/guides/buying-premium-domains/" class="btn-secondary">Next: buying safely</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

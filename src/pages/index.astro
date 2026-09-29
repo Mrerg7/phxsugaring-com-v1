@@ -2,21 +2,56 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
 import WhySection from '../components/WhySection.astro';
 import SugaringSection from '../components/SugaringSection.astro';
 import UseCasesSection from '../components/UseCasesSection.astro';
+import SocialProof from '../components/SocialProof.astro';
 import AcquisitionCTA from '../components/AcquisitionCTA.astro';
 import Footer from '../components/Footer.astro';
+import ExitIntent from '../components/ExitIntent.astro';
 ---
 
 <BaseLayout>
   <Nav />
-  <main class="overflow-x-hidden">
+  <main id="main" class="overflow-x-hidden">
     <Hero />
+    <TrustBar />
     <WhySection />
     <SugaringSection />
     <UseCasesSection />
+    <SocialProof />
     <AcquisitionCTA />
     <Footer />
   </main>
+  <ExitIntent />
 </BaseLayout>
+
+<script>
+  function initReveal() {
+    const nodes = document.querySelectorAll('.fade-up');
+    if (!nodes.length) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      nodes.forEach((n) => n.classList.add('is-visible'));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    nodes.forEach((n) => io.observe(n));
+  }
+
+  initReveal();
+  document.addEventListener('astro:page-load', initReveal);
+</script>

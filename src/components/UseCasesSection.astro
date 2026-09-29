@@ -1,24 +1,54 @@
 ---
 import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
 
 const useCases = (await getCollection('useCases')).sort((a, b) => a.data.order - b.data.order);
+
+const iconMap: Record<
+  string,
+  'building' | 'car' | 'graduation' | 'flask' | 'calendar' | 'sparkles'
+> = {
+  'fa-spa': 'sparkles',
+  'fa-building': 'building',
+  'fa-store': 'building',
+  'fa-car': 'car',
+  'fa-van-shuttle': 'car',
+  'fa-mobile-screen-button': 'car',
+  'fa-graduation-cap': 'graduation',
+  'fa-flask': 'flask',
+  'fa-calendar': 'calendar',
+  'fa-calendar-check': 'calendar',
+  'fa-heart': 'sparkles',
+  'fa-leaf': 'sparkles',
+  'fa-globe': 'sparkles',
+};
 ---
 
 <section id="use-cases" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-  <div class="text-center mb-10">
+  <div class="text-center mb-10 fade-up">
     <div class="modern-pill inline-block mb-3">VERSATILE FOR PHOENIX</div>
     <h2 class="section-header tracking-tight">Ideal for a specialized sugaring business in Phoenix</h2>
+    <p class="mt-3 max-w-2xl mx-auto text-[var(--fg-muted)]">
+      Explore portfolio-style use cases — studio, mobile, education, products, booking, and wellness brands.
+    </p>
   </div>
 
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
     {useCases.map((useCase) => (
-      <div class="clean-section rounded-2xl sm:rounded-3xl p-6 sm:p-8">
-        <div class="flex items-center gap-x-4 mb-4">
-          <i class={`fa-solid ${useCase.data.icon} text-[#B85C38] text-xl`}></i>
-          <h4 class="font-semibold">{useCase.data.title}</h4>
+      <article class="value-card clean-section rounded-2xl sm:rounded-3xl p-6 sm:p-8 fade-up">
+        <div class="flex items-center gap-x-4 mb-4 text-[var(--accent)]">
+          <Icon name={iconMap[useCase.data.icon] || 'sparkles'} size={22} />
+          <h3 class="font-semibold text-[var(--fg)]">{useCase.data.title}</h3>
         </div>
-        <p class="text-[#5C5C5C] text-sm">{useCase.data.description}</p>
-      </div>
+        <p class="text-[var(--fg-muted)] text-sm leading-relaxed">{useCase.data.description}</p>
+      </article>
     ))}
+  </div>
+
+  <div class="mt-10 text-center fade-up">
+    <a href="/guides/" class="btn-secondary inline-flex">
+      Read domain valuation & market guides
+      <Icon name="arrow-right" size={16} />
+    </a>
   </div>
 </section>
